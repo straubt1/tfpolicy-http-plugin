@@ -8,8 +8,8 @@ tasks:
   go:build:
     cmds:
       - |
-        GOOS=linux GOARCH=amd64 go build -o main_amd64 main.go
-        cp main_amd64 /Users/tstraub/Projects/straubt1.github.com/tf-policy/policies/plugins/tfpolicy-http-plugin_amd64
-        # local
-        go build -o main_local main.go
-        cp main_local /Users/tstraub/Projects/straubt1.github.com/tf-policy/policies/plugins/tfpolicy-http-plugin_darwin
+        mkdir -p dist
+        for os in linux darwin; do
+          GOOS=$os GOARCH=amd64 go build -o dist/tfpolicy-http-plugin-$os-amd64
+          cp dist/tfpolicy-http-plugin-$os-amd64 ~/Projects/straubt1.github.com/tf-policy/policies/plugins/tfpolicy-http-plugin-$os-amd64
+        done
