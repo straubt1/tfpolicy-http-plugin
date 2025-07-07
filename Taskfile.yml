@@ -1,0 +1,15 @@
+version: '3'
+
+dotenv: ['.env', 'secrets/.env']
+
+tasks:
+  go:update:
+    cmd: go mod tidy
+  go:build:
+    cmds:
+      - |
+        mkdir -p dist
+        for os in linux darwin; do
+          GOOS=$os GOARCH=amd64 go build -o dist/tfpolicy-http-plugin-$os-amd64
+          cp dist/tfpolicy-http-plugin-$os-amd64 ~/Projects/straubt1.github.com/tf-policy/policies/plugins/tfpolicy-http-plugin-$os-amd64
+        done
